@@ -6,6 +6,8 @@ from openpyxl import load_workbook
 
 import os
 
+import platform
+
 import time
 
 import pdb
@@ -28,7 +30,7 @@ def is_exist(item, file_name_list):
     return ret_flag
 
 
-def start_app():
+def start_app():   
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -88,7 +90,15 @@ def start_app():
 
     chrome_options.add_experimental_option("prefs", {"download.default_directory": downloads_directory})
 
-    driver = webdriver.Chrome('./chromedriver.exe', chrome_options=chrome_options)
+    system = platform.system()
+
+    if system == 'Windows':
+
+        driver = webdriver.Chrome('./chromedriver.exe', chrome_options=chrome_options)
+
+    else:
+
+        driver = webdriver.Chrome('./chromedriver', chrome_options=chrome_options)
 
     driver.get('https://ai.fmcsa.dot.gov/SMS/Carrier/1165242/Overview.aspx?FirstView=True') 
 
